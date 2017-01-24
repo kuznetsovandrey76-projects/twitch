@@ -66,10 +66,10 @@ var channelInfo = function(channelName, status) {
 var outer = function(channelName, logo, link, title, status) {
 	if (status) {
 		// console.log(logo, link, title);		
-		out.innerHTML += '<div class=\'visibile online\'><img src=\'' + logo + '\'><a href=\'' + link + '\'>' + channelName + '</a> ' + title + '</div>'; 
+		out.innerHTML += '<div class=\'visibile online\'><img src=\'' + logo + '\'><a href=\'' + link + '\'>' + channelName + '</a><span class=\'title\'>' + title + '</span></div>'; 
 	}	else {
 		// console.log(logo, link, 'offline');
-		out.innerHTML += '<div class=\'visibile offline\'><img src=\'' + logo + '\'><a href=\'' + link + '\'>' + channelName + '</a> ' + ': offline</div>'; 
+		out.innerHTML += '<div class=\'visibile offline\'><img src=\'' + logo + '\'><a href=\'' + link + '\'>' + channelName + '</a><span class=\'title\'>offline</span></div>'; 
 	}
 }
 
@@ -110,7 +110,7 @@ off.addEventListener('click', function() {
 	});
 	online.forEach( function(e) {
 		e.style.display = 'none';
-	});
+	});	
 });
 
 // Получилось расплывчато, голова к ночи не варит today :) 
@@ -122,6 +122,7 @@ search.addEventListener('keyup', function() {
 
 	// Пробегаем по каждому каналу чтобы найти где есть совпадения
 	// е - один эллемент массива (канал)
+
 	visibile.forEach(function(e) {
 		// Берем название канала из ссылки
 		var local = e.querySelector('a')
@@ -131,8 +132,11 @@ search.addEventListener('keyup', function() {
 		// Все что не подходит убираем
 		if (!res) { 
 			e.style.display = 'none';
-			// Доработать стирание текста
-		}		
+		} 	else {
+			// При нажатии backspace обновляем результат	
+			e.style.display = 'block';
+		}
+
 	});
 });
 
